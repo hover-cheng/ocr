@@ -7,18 +7,20 @@ import logging
 import translate
 
 class ocrApi(object):
-    def __init__(self, imgPath, lang="ch"):
+    def __init__(self, imgPath, lang="ch", check=True):
         self.imgPath=imgPath
         self.lang=lang
+        self.check=check
         self.baseDir = os.path.dirname(os.path.abspath(__file__))
-        self.modelPath = os.path.join(self.baseDir, "model")
+        self.modelPath = os.path.join(self.baseDir, "ocrModel")
 
     def getTrain(self):
         # 关闭日志打印
         logging.disable(logging.WARNING)
         logging.disable(logging.DEBUG)
         trainResult = []
-        transObj = translate.Translator()
+        if self.check !="false":    
+            transObj = translate.Translator()
         # Paddleocr supports Chinese, English, French, German, Korean and Japanese
         # You can set the parameter `lang` as `ch`, `en`, `french`, `german`, `korean`, `japan`
         # to switch the language model in order
@@ -34,9 +36,10 @@ class ocrApi(object):
             for line in res:
                 # print(line)
                 # 只输出预测结果
-                trans = transObj.trans(line[1][0], lang=self.lang)
                 trainResult.append(line[1][0])
-                trainResult.append(trans)
+                if self.check != "false":
+                    trans = transObj.trans(line[1][0], lang=self.lang)
+                    trainResult.append(trans)
         return trainResult
 
     def drawshow(self):

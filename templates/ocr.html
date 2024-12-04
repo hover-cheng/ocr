@@ -14,15 +14,21 @@
           OCR图片识别
         </h2>
       </div>
-      <div class="ui placeholder basic segment" style="height: 50px !important; min-height: 50px !important;">
-        <div class="ui action input">
-          <input  id="fileInput" type="file" @change="handleFiles"/>
-          <select v-model="selectedLang" style="margin-right: 10px;">
-            <option value="ch">中文</option>
-            <option value="en">英文</option>
-          </select>
-          <button class="ui primary basic button"  :class="{disabled: butstatus}" v-on:click="uploadImage()">开始识别</button>
+      <div class="ui placeholder basic segment" style="height: 150px !important; min-height: 150px !important;">
+        <div class="ui icon header">
+          <div class="ui action input">
+            <input  id="fileInput" type="file" @change="handleFiles"/>
+            <select v-model="selectedLang" style="margin-right: 10px;">
+              <option value="ch">中文</option>
+              <option value="en">英文</option>
+            </select>
+            <div class="ui checked checkbox" style="width: 20px;">
+              <input type="checkbox" v-model="checked">
+              <label>翻译</label>
+            </div>
+          </div>
         </div>
+        <div class="ui primary basic button" :class="{disabled: butstatus}" v-on:click="uploadImage()">开始识别</div>
       </div>
       <div class="ui basic segment">
         <img id="uploadedImage" style="max-width: 500px; max-height: 500px;" :style="{ 'display': display}" :src="imageSrc"/>

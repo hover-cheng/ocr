@@ -1,8 +1,7 @@
-from bottle import Bottle, route, run, request, response, static_file, redirect, HTTPResponse, FormsDict
+from bottle import Bottle, route, run, request, static_file, HTTPResponse
 import ocrApi
 import os
 import time
-import json
 
 app = Bottle()
 baseDir = os.path.dirname(os.path.abspath(__file__))
@@ -18,6 +17,8 @@ def saveFile():
     upload = request.files.get('image')
     imgname = request.forms.get('name')
     lang = request.forms.get('lang')
+    checked = request.forms.get('checked')
+    print("checked", checked)
     _, ext = os.path.splitext(imgname)
     if ext not in ('.png', '.jpg', '.jpeg'):
         request.body.close()
@@ -29,7 +30,7 @@ def saveFile():
     filePath = os.path.join(savePath, imgname)
     upload.save(filePath, overwrite=True)
     request.body.close()
-    ocrObj = ocrApi.ocrApi(filePath, lang)
+    ocrObj = ocrApi.ocrApi(filePath, lang, checked)
     result = ocrObj.getTrain()
     return {'result': result}
 

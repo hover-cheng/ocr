@@ -9,6 +9,7 @@ var vm = new Vue({
     result: [],
     butstatus: false,
     selectedLang: 'ch',
+    checked: true,
   },
   methods: {
     handleFiles: function(e) {
@@ -34,6 +35,7 @@ var vm = new Vue({
           formData.append('image', this.files);
           formData.append('name', this.imgname);
           formData.append('lang', this.selectedLang);
+          formData.append('checked', this.checked);
           // 将 FormData 对象发送到服务器
           axios.post('/upload', formData, {
             headers: {
@@ -52,6 +54,8 @@ var vm = new Vue({
           });
         } else {
           console.log(this.selectedLang);
+          console.log(this.checked);
+          
           alert('Please select an image to upload.');
         }
       },
