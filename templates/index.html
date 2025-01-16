@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="../static/css/semantic.min.css">
+    <script type="text/javascript" src="../static/js/vue.js"></script>
+    <script type="text/javascript" src="../static/js/axios.min.js"></script>
+    <title></title>
+  </head>
+  <body >
+    <div id="app">
+      <div :class="envirsNum">
+        <a class="item" v-for="(item, index) in envirs"  v-on:click="selectRegion(index)">
+          {{item.name}}
+        </a>
+      </div>
+      <div class="ui six item menu">
+        <a class="item">ENABLE_LOGIN_VALIDATION：地区验证</a>
+        <a class="item">ENABLE_ACTIVATION：激活</a>
+        <a class="item">CHECK_BLACK_LIST：黑名单</a>
+        <a class="item">ENABLE_WHITE_LIST：白名单</a>
+        <a class="item">ENABLE_MULTI_CLIENT：多开登录</a>
+        <a class="item">1代表打开，0代表关闭</a>
+      </div>
+      <table class="ui celled table" v-if=selectStatus>
+        <thead>
+          <tr>
+            <th>环境</th>
+            <th>指令</th>
+            <th>开关</th>
+          </tr>
+          <tbody>
+            <tr v-for="(item, index) in commandList">
+              <td data-label='环境'>{{selectName}}</td>
+              <td data-label='指令'>{{item.name}}</td>
+              <td data-label='环境'>
+                <div class="ui buttons">
+                  <button class="ui blue button" v-on:click="checkCommand(index, 0)">ON</button>
+                  <div class="or"></div>
+                  <button class="ui red button" v-on:click="getResult()">OFF</button>
+                </div>
+            </tr>
+          </tbody>
+        </thead>
+      </table>
+      <div class="ui large success message" v-if=result>
+        {{result}}
+      </div>
+    </div>
+    <script type="text/javascript" src="../static/js/index.js"></script>
+  </body>
+</html>

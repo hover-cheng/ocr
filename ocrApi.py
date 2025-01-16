@@ -1,3 +1,4 @@
+# -*- coding: utf8 -*-
 # pip install paddlepaddle
 # pip install paddleocr
 from paddleocr import PaddleOCR, draw_ocr
@@ -19,8 +20,7 @@ class ocrApi(object):
         logging.disable(logging.WARNING)
         logging.disable(logging.DEBUG)
         trainResult = []
-        if self.check !="false":    
-            transObj = translate.Translator()
+        result = []
         # Paddleocr supports Chinese, English, French, German, Korean and Japanese
         # You can set the parameter `lang` as `ch`, `en`, `french`, `german`, `korean`, `japan`
         # to switch the language model in order
@@ -30,6 +30,7 @@ class ocrApi(object):
                         rec_model_dir=os.path.join(self.modelPath, "rec", "{}".format(self.lang), "ch_PP-OCRv4_rec_infer"),
                         cls_model_dir=os.path.join(self.modelPath, "cls", "ch_ppocr_mobile_v2.0_cls_infer"),
                         ) # need to run only once to download and load model into memory
+        print("开始执行OCR识别")
         self.result = ocr.ocr(self.imgPath, cls=True)
         for idx in range(len(self.result)):
             res = self.result[idx]
@@ -37,10 +38,13 @@ class ocrApi(object):
                 # print(line)
                 # 只输出预测结果
                 trainResult.append(line[1][0])
-                if self.check != "false":
-                    trans = transObj.trans(line[1][0], lang=self.lang)
-                    trainResult.append(trans)
-        return trainResult
+        if self.check !="false":
+            transObj = translate.GoogleTranslator()
+            for item in trainResult:
+                result.append(item)
+                trans = transObj.translate(item, lang=self.lang)
+                result.append(trans)
+        return result
 
     def drawshow(self):
         # draw result
@@ -55,5 +59,5 @@ class ocrApi(object):
         im_show.show()
 
 if __name__=="__main__":
-    ocr = ocrApi("E:\\POPO-20241128-154641.jpg")
+    ocr = ocrApi("/tmp/test/1.pdf")
     result = ocr.getTrain()

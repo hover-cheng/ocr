@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="../static/css/semantic.min.css">
+    <script type="text/javascript" src="../static/js/vue.min.js"></script>
+    <script type="text/javascript" src="../static/js/axios.min.js"></script>
+    <title>百川</title>
+  </head>
+  <body>
+    <div id="app">
+        <div class="ui menu">
+        </div>
+        
+        <div class="ui basic segment">
+            <div class="ui form">
+                <div class="field">
+                  <div class="ui basic segment">
+                    <label style="font-size:25px">Baichuan 2</label>
+                  </div>
+                  <textarea readonly rows="15" style="resize:none;font-size:18px;" v-model="result"></textarea>
+                </div>
+                <div class="field">
+                  <textarea rows="3" style="resize:none" placeholder="请输入内容..." v-model="msg" @keyup.ctrl.enter="sendMsg()"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="ui basic segment">
+            <button class="ui pink button" :class=" {disabled: butstatus}" v-on:click="sendMsg()">
+                提交
+              </button>
+              <button class="ui basic button" :class=" {disabled: butstatus}" v-on:click="clearmsg()">
+                清空
+              </button>
+        </div>
+    </div>
+    <script type="text/javascript" src="../static/js/chat.js"></script>
+  </body>
+</html>

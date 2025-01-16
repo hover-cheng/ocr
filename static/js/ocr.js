@@ -41,8 +41,8 @@ var vm = new Vue({
             headers: {
               'Content-Type': 'multipart/form-data'
             }
-          })
-          .then(res => {
+          },{ timeout: 1000 * 60 * 5
+          }).then(res => {
             this.result = res.data.result;
             this.butstatus = false;
             console.log(this.result);
