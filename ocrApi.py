@@ -1,6 +1,4 @@
-# -*- coding: utf8 -*-
-# pip install paddlepaddle
-# pip install paddleocr
+# -*- coding: utf8 -*
 from paddleocr import PaddleOCR, draw_ocr
 from PIL import Image
 import os
@@ -44,7 +42,9 @@ class ocrApi(object):
                 result.append(item)
                 trans = transObj.translate(item, lang=self.lang)
                 result.append(trans)
-        return result
+            return result
+        else:
+            return trainResult
 
     def drawshow(self):
         # draw result

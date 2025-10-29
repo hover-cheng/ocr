@@ -4,8 +4,8 @@
 
 ### Requirements
 ```
-pip install paddlepaddle
-pip install paddleocr
+pip install paddlepaddle==2.6.2
+pip install paddleocr==2.9.1
 pip install uwsgi
 ```
 
